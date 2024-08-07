@@ -1,0 +1,27 @@
+# Archivos y carpetas ignorados por Git
+
+# Archivos de Node.js
+node_modules/
+npm-debug.log
+package-lock.json
+
+# Archivos de configuración de editor
+.vscode/
+
+# Archivos de compilación y cache
+build/
+dist/
+tmp/
+
+# Archivos de logs
+logs/
+
+# Archivos de configuración de desarrollo
+config/dev.js
+
+# Archivos de configuración de producción
+config/prod.js
+
+# Otros archivos y carpetas
+.DS_Store
+Thumbs.db

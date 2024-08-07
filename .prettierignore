@@ -1,0 +1,3 @@
+# Ignore all HTML files:
+# **/*.ejs
+views/partials/header.ejs

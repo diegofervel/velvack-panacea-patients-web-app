@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0" />
+    <title>Signature Pad</title>
+    <style>
+      canvas {
+        border: 1px solid #000;
+      }
+      #signature-pad {
+        text-align: center;
+      }
+      #save-btn {
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 style="text-align: center">Firme aquí:</h1>
+    <br />
+    <div id="signature-pad">
+      <canvas
+        id="canvas"
+        width="600"
+        height="300"></canvas>
+      <div>
+        <button id="clear-btn">Clear</button>
+        <button id="save-btn">Save as PNG</button>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+    <script src="signature.js"></script>
+  </body>
+</html>

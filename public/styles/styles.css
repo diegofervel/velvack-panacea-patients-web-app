@@ -1,0 +1,48 @@
+/*Paleta colores Velvack - Panacea:*/
+:root {
+  --primary-color: #2a9d8f; /**/
+  --secondary-color: #81b29a; /**/
+  --neutral-light: #ededed; /**/
+  --neutral-dark: #333333; /**/
+  --alert-color: #d4226e; /*#fc5185 #f7638f #d4226e #c93689 #E76F51 f78aab*/
+  --success-color: #010101; /**/
+  --warning-color: #f4a261; /**/
+  --velvack-dark-blue: #364f6b;
+}
+
+.velvack-section-title {
+  color: var(--velvack-dark-blue);
+}
+
+/*.container {
+  display: flex;
+  justify-content: space-around;
+}*/
+
+.velvack-button-1 {
+  /*background-color: #fc5185;*/
+  /*background-color: #f7638f;*/
+  background-color: var(--alert-color);
+  border: none;
+}
+
+/*
+.form-control:focus {
+    border-color: #364F6B; 
+    box-shadow: 0 0 0 0.15rem rgba(63, 193, 201, 0.3); /* offset-x | offset-y | blur-radius | spread-radius | color */
+/*}*/
+
+.form-check-input {
+  width: 1.3rem;
+  height: 1.3rem;
+}
+
+.form-check-input:hover {
+  cursor: pointer;
+}
+
+#velvackNavBar {
+  background: rgb(226, 237, 249);
+  background: linear-gradient(11deg, rgba(226, 237, 249, 1) 26%, rgba(0, 123, 255, 0.2890582258293942) 100%);
+  /*background-color: #e2edf9;*/
+}

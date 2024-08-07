@@ -1,0 +1,2 @@
+INSERT INTO pacientes (nombre_1, nombre_2, apellido_1, apellido_2, tipo_doc, num_doc, fecha_nacimiento, genero, pais_nacimiento)
+VALUES ('Diego', 'Fernando', 'Velasco', 'Giraldo', 'Cédula de ciudadanía', 1130612454, '1987-05-11', 'Masculino', 'Colombia');

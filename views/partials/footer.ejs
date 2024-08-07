@@ -1,0 +1,80 @@
+<footer class="container col-md-9 mt-5 mb-5 text-center">
+  <p>Copyright © Velvack Panacea - <%= new Date().getFullYear() %></p>
+</footer>
+<script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+  crossorigin="anonymous"></script>
+
+  <script>
+    const patientBirthDate = document.getElementById("patientBirthDate");
+  
+    patientBirthDate.addEventListener("input", function (e) {
+      let value = this.value.replace(/\D/g, ""); // Remove non-digit characters
+      let formattedValue = "";
+  
+      if (value.length > 0) {
+        formattedValue += value.substring(0, 2); // Day
+        if (value.length > 2) {
+          formattedValue += "/" + value.substring(2, 4); // Month
+        }
+        if (value.length > 4) {
+          formattedValue += "/" + value.substring(4, 8); // Year
+        }
+      }
+      this.value = formattedValue;
+    });
+  
+    patientBirthDate.addEventListener("blur", function () {
+      let value = this.value.replace(/\D/g, ""); // Remove non-digit characters
+      let formattedValue = "";
+  
+      if (value.length === 8) {
+        formattedValue = value.substring(0, 2) + "/" + value.substring(2, 4) + "/" + value.substring(4, 8);
+      } else {
+        this.value = ""; // Clear the input field if the date is invalid
+      }
+  
+      this.value = formattedValue;
+    });
+  </script>
+<%# 
+<script>
+  (function () {
+    "use strict";
+    window.addEventListener(
+      "load",
+      function () {
+        let forms = document.getElementsByClassName("needs-validation");
+        Array.prototype.filter.call(forms, function (form) {
+          form.addEventListener(
+            "submit",
+            function (event) {
+              if (form.checkValidity() === false) {
+                event.preventDefault();
+                event.stopPropagation();
+
+                // Find the first invalid field
+                let firstInvalidField = form.querySelector("input:invalid, textarea:invalid, select:invalid");
+
+                // If there is an invalid field, scroll to it
+                if (firstInvalidField) {
+                  firstInvalidField.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center",
+                  });
+                }
+              }
+              form.classList.add("was-validated");
+            },
+            false
+          );
+        });
+      },
+      false
+    );
+  })();
+</script>
+%>
+</body>
+</html>

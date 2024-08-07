@@ -1,0 +1,22 @@
+Paleta de Colores
+Azul Primario: #007bff
+
+Uso: Botones principales, enlaces importantes, encabezados.
+Azul Oscuro: #0056b3
+
+Uso: Botones secundarios, enlaces secundarios, elementos de navegación.
+Azul Claro: #66b2ff
+
+Uso: Fondos de secciones, elementos destacados.
+Verde Suave: #28a745
+
+Uso: Indicadores de éxito, botones de acción positivos.
+Gris Oscuro: #343a40
+
+Uso: Texto principal, íconos, bordes.
+Gris Claro: #f8f9fa
+
+Uso: Fondos de página, fondos de tarjetas, áreas de contenido.
+Blanco: #ffffff
+
+Uso: Fondo principal, texto sobre fondos oscuros.

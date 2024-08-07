@@ -1,0 +1,309 @@
+<%- include('partials/header.ejs'); %> <%- include('partials/navbar.ejs'); %> <%# let formTitle = 'CREAR PACIENTE'; if
+(patient) { formTitle = 'EDITAR PACIENTE'; } %>
+
+<div class="container col-md-8">
+  <form action="/create" method="post" class="needs-validation" novalidate>
+    <h5 class="mb-3 velvack-section-title"><%= formTitle %></h5>
+    <h5 class="mb-4 mt-5 velvack-section-title">Información personal</h5>
+
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="patientFirstName">Primer nombre<span style="color: red">*</span></label>
+        <input
+          type="text"
+          class="form-control <%= locals.errors?.find(err => err.path === 'patientFirstName') ? 'is-invalid' : '' %>"
+          id="patientFirstName"
+          name="patientFirstName"
+          value="<%= locals.patient ? (patient.patientFirstName || '') : '' %>"
+          required
+        />
+        <div class="invalid-feedback">
+          <%= locals.errors?.find(err => err.path === 'patientFirstName')?.msg || '' %>
+        </div>
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label for="patientSecondName">Segundo nombre</label>
+        <input
+          type="text"
+          class="form-control <%= locals.errors?.find(err => err.path === 'patientSecondName') ? 'is-invalid' : '' %>"
+          id="patientSecondName"
+          name="patientSecondName"
+          value="<%= locals.patient ? (patient.patientSecondName || '') : '' %>"
+        />
+        <div class="invalid-feedback">
+          <%= locals.errors?.find(err => err.path === 'patientSecondName')?.msg || '' %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="patientFirstLastName">Primer apellido<span style="color: red">*</span></label>
+        <input
+          type="text"
+          class="form-control <%= locals.errors?.find(err => err.path === 'patientFirstLastName') ? 'is-invalid' : '' %>"
+          id="patientFirstLastName"
+          name="patientFirstLastName"
+          value="<%= locals.patient ? (patient.patientFirstLastName || '') : '' %>"
+          required
+        />
+        <div class="invalid-feedback">
+          <%= locals.errors?.find(err => err.path === 'patientFirstLastName')?.msg || '' %>
+        </div>
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label for="patientSecondLastName">Segundo apellido</label>
+        <input
+          type="text"
+          class="form-control <%= locals.errors?.find(err => err.path === 'patientSecondLastName') ? 'is-invalid' : '' %>"
+          id="patientSecondLastName"
+          name="patientSecondLastName"
+          value="<%= locals.patient ? (patient.patientSecondLastName || '') : '' %>"
+        />
+        <%# seguir con esto mañana y revisar si está funcionando bien %>
+        <div class="invalid-feedback">
+          <%= locals.errors?.find(err => err.path === 'patientSecondLastName')?.msg || '' %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="idInfo">Identificación<span style="color: red">*</span></label>
+        <div class="input-group" id="idInfo">
+          <select
+            class="form-select <%= locals.errors?.find(err => err.path === 'patientIdType') ? 'is-invalid' : '' %>"
+            id="patientIdType"
+            name="patientIdType"
+            required
+          >
+            <% let isPatientIdTypeSelected = !locals.patient || !patient.patientIdType ? 'selected' : ''; %>
+            <!-- prettier-ignore -->
+            <option value="" disabled <%= isPatientIdTypeSelected %>>Tipo de documento</option>
+            <% let idTypeSelected = {}; %> <% for (let i = 1; i <= 5; i++) { let idType = ['', 'Cédula de ciudadanía',
+            'Tarjeta de identidad', 'Registro civil', 'Pasaporte', 'Cédula de extranjería'][i]; idTypeSelected[i] =
+            locals.patient?.patientIdType == i ? 'selected' : '' %>
+            <!-- prettier-ignore -->
+            <option value=<%=i%> <%= idTypeSelected[i] %>><%= idType %></option>
+            <% } %>
+          </select>
+          <input
+            type="text"
+            class="form-control <%= locals.errors?.find(err => err.path === 'patientIdNumber') ? 'is-invalid' : '' %>"
+            id="patientIdNumber"
+            name="patientIdNumber"
+            value="<%= locals.patient ? (patient.patientIdNumber || '') : '' %>"
+            style="width: 125px"
+            placeholder="Número de documento"
+            aria-label="Text input"
+            required
+          />
+          <div class="invalid-feedback">
+            <%= locals.errors?.find(err => err.path === 'patientIdType')?.msg || locals.errors?.find(err => err.path ===
+            'patientIdNumber')?.msg || '' %>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label for="patientBirthDate" <%#class="form-label" %>
+          > Fecha de nacimiento<span style="color: red">*</span></label
+        >
+        <input
+          type="text"
+          class="form-control <%= locals.errors?.find(err => err.path === 'patientBirthDate') ? 'is-invalid' : '' %>"
+          id="patientBirthDate"
+          name="patientBirthDate"
+          placeholder="DD/MM/YYYY"
+          value="<%=
+        locals.patient ? (patient.patientBirthDate.toString() !== 'Invalid Date' ?
+        patient.patientBirthDate.toLocaleDateString('es-CO', { 
+          day: '2-digit', 
+          month: '2-digit', 
+          year: 'numeric' 
+        }) : '' ) : '' %>"
+          required
+        />
+        <div class="invalid-feedback">
+          <%= locals.errors?.find(err => err.path === 'patientBirthDate')?.msg || '' %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="patientGender">Género<span style="color: red">*</span></label>
+        <select
+          class="form-select <%= locals.errors?.find(err => err.path === 'patientGender') ? 'is-invalid' : '' %>"
+          id="patientGender"
+          name="patientGender"
+          required
+        >
+          <% let isGenderSelected = !locals.patient || !patient.patientGender ? 'selected' : ''; %>
+          <!-- prettier-ignore -->
+          <option value="" disabled <%= isGenderSelected %>>Seleccione</option>
+          <% let patientGenderSelected = {}; %> <% for (let i = 0; i < 3; i++) { let gender = ['Masculino', 'Femenino',
+          'Indeterminado'][i]; patientGenderSelected[i] = locals.patient?.patientGender == gender ? 'selected' : ''; %>
+          <!-- prettier-ignore -->
+          <option value=<%=gender%> <%= patientGenderSelected[i] %>><%= gender %></option>
+          <% } %>
+        </select>
+        <div class="invalid-feedback"><%= locals.errors?.find(err => err.path === 'patientGender')?.msg || '' %></div>
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label for="patientCountryBirth">País de nacimiento</label>
+        <input
+          type="text"
+          class="form-control <%= locals.errors?.find(err => err.path === 'patientCountryBirth') ? 'is-invalid' : '' %>"
+          id="patientCountryBirth"
+          name="patientCountryBirth"
+          value="<%= locals.patient ? (patient.patientCountryBirth || '') : '' %>"
+        />
+        <div class="invalid-feedback">
+          <%= locals.errors?.find(err => err.path === 'patientCountryBirth')?.msg || '' %>
+        </div>
+      </div>
+    </div>
+
+    <h5 class="mb-4 mt-5 velvack-section-title">Información de contacto</h5>
+
+    <div class="row">
+      <div class="col-md-4 mb-3">
+        <label for="patientMobile">Número de celular<span style="color: red">*</span></label>
+        <input
+          type="text"
+          class="form-control <%= locals.errors?.find(err => err.path === 'patientMobile') ? 'is-invalid' : '' %>"
+          id="patientMobile"
+          name="patientMobile"
+          value="<%= locals.patient ? (patient.patientMobile || '') : '' %>"
+          required
+        />
+        <div class="invalid-feedback"><%= locals.errors?.find(err => err.path === 'patientMobile')?.msg || '' %></div>
+      </div>
+
+      <div class="col-md-4 mb-3">
+        <label for="patientPhone">Número de teléfono fijo</label>
+        <input
+          type="text"
+          class="form-control <%= locals.errors?.find(err => err.path === 'patientPhone') ? 'is-invalid' : '' %>"
+          id="patientPhone"
+          name="patientPhone"
+          value="<%= locals.patient ? (patient.patientPhone || '') : '' %>"
+        />
+        <div class="invalid-feedback"><%= locals.errors?.find(err => err.path === 'patientPhone')?.msg || '' %></div>
+      </div>
+
+      <div class="col-md-4 mb-3">
+        <label for="patientEmail">Correo electrónico</label>
+        <input
+          type="email"
+          class="form-control <%= locals.errors?.find(err => err.path === 'patientEmail') ? 'is-invalid' : '' %>"
+          id="patientEmail"
+          name="patientEmail"
+          value="<%= locals.patient ? (patient.patientEmail || '') : '' %>"
+        />
+        <div class="invalid-feedback"><%= locals.errors?.find(err => err.path === 'patientEmail')?.msg || '' %></div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="patientAddress">Dirección de residencia</label>
+        <input
+          type="text"
+          class="form-control <%= locals.errors?.find(err => err.path === 'patientAddress') ? 'is-invalid' : '' %>"
+          id="patientAddress"
+          name="patientAddress"
+          value="<%= locals.patient ? (patient.patientAddress || '') : '' %>"
+        />
+        <div class="invalid-feedback"><%= locals.errors?.find(err => err.path === 'patientAddress')?.msg || '' %></div>
+      </div>
+    </div>
+
+    <h5 class="mb-4 mt-5 velvack-section-title">Estudio y programa</h5>
+
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <% let isPatientAttentionProgramSelected = !locals.patient || !patient.patientAttentionProgram ? 'selected' :
+        ''; %> <% let patientAttentionProgramSelected = {}; %> <% for (let i = 1; i <= 3; i++) {
+        patientAttentionProgramSelected[i] = locals.patient?.patientAttentionProgram == i ? 'selected' : ''; } %>
+        <label for="patientAttentionProgram">Programa de atención<span style="color: red">*</span></label>
+        <select
+          class="form-select <%= locals.errors?.find(err => err.path === 'patientAttentionProgram') ? 'is-invalid' : '' %>"
+          id="patientAttentionProgram"
+          name="patientAttentionProgram"
+          required
+        >
+          <!-- prettier-ignore -->
+          <option value="" disabled <%=isPatientAttentionProgramSelected%>>Seleccione el programa de atención</option>
+          <!-- prettier-ignore -->
+          <option value="1" <%= patientAttentionProgramSelected[1] %>>Dolor</option>
+          <!-- prettier-ignore -->
+          <option value="2" <%= patientAttentionProgramSelected[2] %>>Cáncer</option>
+          <!-- prettier-ignore -->
+          <option value="3" <%= patientAttentionProgramSelected[3] %>>Virus</option>
+        </select>
+        <div class="invalid-feedback">
+          <%= locals.errors?.find(err => err.path === 'patientAttentionProgram')?.msg || '' %>
+        </div>
+      </div>
+    </div>
+
+    <h5 class="mb-4 mt-5 velvack-section-title">Acudiente</h5>
+
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="relativeName">Nombre del acudiente</label>
+        <input
+          type="text"
+          class="form-control <%= locals.errors?.find(err => err.path === 'relativeName') ? 'is-invalid' : '' %>"
+          id="relativeName"
+          name="relativeName"
+          value="<%= locals.patient ? patient.relativeName : '' %>"
+        />
+        <div class="invalid-feedback"><%= locals.errors?.find(err => err.path === 'relativeName')?.msg || '' %></div>
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label for="relativePhone">Teléfono del acudiente</label>
+        <input
+          type="text"
+          class="form-control <%= locals.errors?.find(err => err.path === 'relativePhone') ? 'is-invalid' : '' %>"
+          id="relativePhone"
+          name="relativePhone"
+          value="<%= locals.patient ? patient.relativePhone : '' %>"
+        />
+        <div class="invalid-feedback"><%= locals.errors?.find(err => err.path === 'relativePhone')?.msg || '' %></div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="relativeRelationship">Parentesco</label>
+        <input
+          type="text"
+          class="form-control <%= locals.errors?.find(err => err.path === 'relativeRelationship') ? 'is-invalid' : '' %>"
+          id="relativeRelationship"
+          name="relativeRelationship"
+          value="<%= locals.patient ? patient.relativeRelationship : '' %>"
+        />
+        <div class="invalid-feedback">
+          <%= locals.errors?.find(err => err.path === 'relativeRelationship')?.msg || '' %>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-end mt-3 mb-5">
+      <a href="/">
+        <button type="button" id="cancelPatientCreationButton" class="btn btn-secondary mr-3">Cancelar</button>
+      </a>
+      <p class="mx-2"></p>
+      <button type="submit" id="createPatientButton" class="btn btn-primary ml-3">Crear</button>
+    </div>
+  </form>
+</div>
+
+<%- include('partials/footer.ejs'); %>

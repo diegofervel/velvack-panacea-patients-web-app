@@ -1,10 +1,11 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import pg from 'pg';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import moment from 'moment';
 import { validationResult } from 'express-validator';
 import patientValidationRules from './public/patientValidationRules.js'; // cambiar a ruta más general usando librería path
-//import path from "path"; // const path = require('path');
 
 const app = express();
 const port = 3000; // const port = process.env.PORT || 3000;
@@ -13,7 +14,13 @@ const port = 3000; // const port = process.env.PORT || 3000;
 app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use(express.static('public')); // app.use(express.static(path.join(__dirname, 'public')));
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+app.use('/node_modules', express.static(path.join(__dirname, 'node_modules')));
+
 //app.use(express.json());
 
 const db = new pg.Client({
@@ -61,7 +68,7 @@ app.get('/patient-form/:edit?/:id?', async (req, res) => {
       pacientes.num_doc AS "patientIdNumber", 
       pacientes.fecha_nacimiento AS "patientBirthDate", 
       pacientes.genero AS "patientGender", 
-      pacientes.pais_nacimiento AS "patientCountryBirth",
+      pacientes.pais_nacimiento_id AS "patientCountryBirth",
       pacientes.prog_atencion_id AS "patientAttentionProgram",   
       contacto.celular AS "patientMobile", 
       contacto.telefono AS "patientPhone", 
@@ -79,8 +86,15 @@ app.get('/patient-form/:edit?/:id?', async (req, res) => {
     patient = result.rows[0];
     console.log(patient);
   }
+  const result2 = await db.query('SELECT * FROM paises ORDER BY id ASC');
+  let countries = result2.rows;
   try {
-    res.render('patientForm.ejs', { patient: patient, formTitle: formTitle /*, errors: errors */ });
+    //SELECT * FROM flags WHERE
+    res.render('patientForm.ejs', {
+      patient: patient,
+      formTitle: formTitle,
+      countries: countries /*, errors: errors */
+    });
     formTitle = 'CREAR PACIENTE'; // Evaluar esto, creo que ya no es necesario.
   } catch (err) {
     console.log(err);
@@ -96,7 +110,7 @@ app.post('/create', patientValidationRules(), async (req, res) => {
   let newP = req.body;
   const patientBirthDateFormat = moment(newP.patientBirthDate, 'DD/MM/YYYY'); // OJO: cambiar moment por "date-fns".
   newP.patientBirthDate = new Date(new Date(patientBirthDateFormat).toUTCString());
-  console.log('newP.patientBirthDate: ' + newP.patientBirthDate);
+  //console.log('newP.patientBirthDate: ' + newP.patientBirthDate);
 
   let errors = validationResult(req);
   if (errors.isEmpty()) {
@@ -105,9 +119,9 @@ app.post('/create', patientValidationRules(), async (req, res) => {
       //const formattedBirthDate = birthDateMoment.isValid() ? birthDateMoment.format('YYYY-MM-DD') : '';
       const result = await db.query(
         `INSERT INTO pacientes (nombre_1, nombre_2, apellido_1, apellido_2, tipo_doc_id, num_doc, 
-        fecha_nacimiento, genero, pais_nacimiento, tipo_doc, prog_atencion_id, prog_atencion) 
+        fecha_nacimiento, genero, pais_nacimiento_id, tipo_doc, prog_atencion_id, prog_atencion, pais_nacimiento) 
         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, (SELECT nombre FROM tipo_documento WHERE id = $5), $10, 
-        (SELECT nombre FROM programa_atencion WHERE id = $10)) RETURNING id`,
+        (SELECT nombre FROM programa_atencion WHERE id = $10), (SELECT nombre FROM paises WHERE codigo_iso2 = $9)) RETURNING id`,
         [
           newP.patientFirstName.cap(),
           newP.patientSecondName.cap(),

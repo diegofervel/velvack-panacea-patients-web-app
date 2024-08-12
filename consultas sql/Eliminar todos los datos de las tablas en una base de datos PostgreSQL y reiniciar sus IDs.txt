@@ -1,0 +1,39 @@
+Para eliminar todos los datos de las tablas en una base de datos PostgreSQL, dejando solo las cabeceras (es decir, manteniendo la estructura de las tablas) y reseteando los IDs (es decir, reiniciando las secuencias de los IDs), puedes seguir estos pasos:
+
+1. Deshabilitar Temporalmente las Restricciones de Clave Foránea:
+Esto es necesario para poder truncar las tablas en cualquier orden sin preocuparse por las dependencias entre ellas.
+
+sql
+Copy code
+SET session_replication_role = 'replica';
+2. Truncar Todas las Tablas:
+El comando TRUNCATE elimina todos los datos de una tabla y reinicia cualquier secuencia asociada (como los IDs autoincrementales).
+
+sql
+Copy code
+TRUNCATE TABLE table_name RESTART IDENTITY CASCADE;
+Para aplicar esto a todas las tablas:
+
+sql
+Copy code
+DO $$ DECLARE
+    r RECORD;
+BEGIN
+    FOR r IN (SELECT tablename FROM pg_tables WHERE schemaname = 'public') LOOP
+        EXECUTE 'TRUNCATE TABLE ' || quote_ident(r.tablename) || ' RESTART IDENTITY CASCADE';
+    END LOOP;
+END $$;
+3. Rehabilitar las Restricciones de Clave Foránea:
+Una vez que hayas truncado todas las tablas, reactiva las restricciones de clave foránea.
+
+sql
+Copy code
+SET session_replication_role = 'origin';
+Explicación:
+TRUNCATE TABLE: Borra todas las filas de la tabla.
+RESTART IDENTITY: Reinicia las secuencias (IDs) asociadas con la tabla.
+CASCADE: Asegura que las tablas que dependen de otras tablas también sean truncadas sin errores.
+Advertencia:
+El uso de TRUNCATE es irreversible y eliminará permanentemente todos los datos de las tablas. Asegúrate de hacer una copia de seguridad de los datos si es necesario antes de proceder.
+Resumen:
+Este procedimiento eliminará todos los registros de todas las tablas en tu base de datos PostgreSQL y reiniciará los IDs autoincrementales, dejando solo las estructuras de las tablas.

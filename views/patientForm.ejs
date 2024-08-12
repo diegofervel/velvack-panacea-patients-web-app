@@ -155,13 +155,18 @@
 
       <div class="col-md-6 mb-3">
         <label for="patientCountryBirth">País de nacimiento</label>
-        <input
-          type="text"
-          class="form-control <%= locals.errors?.find(err => err.path === 'patientCountryBirth') ? 'is-invalid' : '' %>"
-          id="patientCountryBirth"
-          name="patientCountryBirth"
-          value="<%= locals.patient ? (patient.patientCountryBirth || '') : '' %>"
-        />
+        <select class="form-select <%= locals.errors?.find(err => err.path === 'patientCountryBirth') ? 'is-invalid' : '' %>" 
+          id="patientCountryBirth" name="patientCountryBirth">
+        <option value="" disabled selected > Seleccione un país </option> 
+        <% if (locals.countries) { 
+        for (let country of countries) { %>
+        <option value="<%= country.codigo_iso2 %>" <%= locals.patient?.patientCountryBirth == country.codigo_iso2 ? 'selected' : '' %>>
+          <span class="fi fi-<%= country.codigo_iso2 %> fis rounded-flag"></span>
+          <%= country.nombre %>
+        </option>
+        <% } %>
+        <% } %>
+        </select>
         <div class="invalid-feedback">
           <%= locals.errors?.find(err => err.path === 'patientCountryBirth')?.msg || '' %>
         </div>

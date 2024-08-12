@@ -1,6 +1,6 @@
 <%- include('partials/header.ejs'); %> <%- include('partials/navbar.ejs'); %> <%if (locals.alertMessage){%>
 <script>
-  alert("<%= locals.alertMessage %>");
+  alert('<%= locals.alertMessage %>');
 </script>
 <%}%>
 <div class="container col-md-9">
@@ -12,23 +12,45 @@
     <div class="col-sm-4 mb-3 text-end">
       <div class="input-group" style="max-width: 100%">
         <button class="btn btn-outline-secondary border" type="button" id="button-addon1">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-search"
+            viewBox="0 0 16 16"
+          >
             <path
-              d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+              d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"
+            />
           </svg>
         </button>
-        <input type="search" class="form-control" placeholder="Buscar..." aria-label="Campo de texto para buscar palabra" />
+        <input
+          type="search"
+          class="form-control"
+          placeholder="Buscar..."
+          aria-label="Campo de texto para buscar palabra"
+        />
       </div>
     </div>
     <div class="col-lg-2 mb-3 text-end">
       <form action="/patient-form/" method="GET">
         <button type="submit" class="btn btn-primary velvack-button-1">
-          <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" class="bi bi-person-plus" viewBox="0 0 16 16">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="23"
+            height="23"
+            fill="currentColor"
+            class="bi bi-person-plus"
+            viewBox="0 0 16 16"
+          >
             <path
-              d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
+              d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"
+            />
             <path
               fill-rule="evenodd"
-              d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5" />
+              d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5"
+            />
           </svg>
           Nuevo paciente
         </button>
@@ -52,13 +74,23 @@
         <% for(let patient of patientsList){ %>
         <tr>
           <td><%=patient.nombre_1%> <%=patient.nombre_2%> <%=patient.apellido_1%> <%=patient.apellido_2%></td>
-          <td><%=patient.fecha_nacimiento.toLocaleDateString('es-CO')%></td>
+          <td>
+            <%=patient.fecha_nacimiento.toLocaleDateString('es-CO', { day: '2-digit', month: '2-digit', year: 'numeric'
+            })%>
+          </td>
           <td><%=patient.genero%></td>
           <td><%=patient.tipo_doc%></td>
           <td><%=patient.num_doc%></td>
           <td>
             <a href="patient-form/edit/<%=patient.id%>">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#6c757d" stroke="#6c757d">
+              <svg
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+                width="25"
+                height="25"
+                fill="#6c757d"
+                stroke="#6c757d"
+              >
                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
                 <g id="SVGRepo_iconCarrier">
@@ -72,14 +104,16 @@
                           stroke="6c757d"
                           stroke-linecap="round"
                           stroke-linejoin="round"
-                          stroke-width="2"></path>
+                          stroke-width="2"
+                        ></path>
                         <polygon
                           fill="none"
                           points="12.5 15.8 22 6.2 17.8 2 8.3 11.5 8 16 12.5 15.8"
                           stroke="6c757d"
                           stroke-linecap="round"
                           stroke-linejoin="round"
-                          stroke-width="2"></polygon>
+                          stroke-width="2"
+                        ></polygon>
                       </g>
                     </g>
                   </g>

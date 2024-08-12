@@ -1,0 +1,249 @@
+codigo_iso2, nombre, nombre_ingles, indicativo
+AF,Afganistán,Afghanistan,93
+AL,Albania,Albania,355
+DE,Alemania,Germany,49
+AD,Andorra,Andorra,376
+AO,Angola,Angola,244
+AI,Anguila,Anguilla,1 264
+AQ,Antártida,Antarctica,672
+AG,Antigua y Barbuda,Antigua and Barbuda,1 268
+SA,Arabia Saudita,Saudi Arabia,966
+DZ,Argelia,Algeria,213
+AR,Argentina,Argentina,54
+AM,Armenia,Armenia,374
+AW,Aruba,Aruba,297
+AU,Australia,Australia,61
+AT,Austria,Austria,43
+AZ,Azerbaiyán,Azerbaijan,994
+BE,Bélgica,Belgium,32
+BS,Bahamas,Bahamas,1 242
+BH,Bahrein,Bahrain,973
+BD,Bangladesh,Bangladesh,880
+BB,Barbados,Barbados,1 246
+BZ,Belice,Belize,501
+BJ,Benín,Benin,229
+BT,Bhután,Bhutan,975
+BY,Bielorrusia,Belarus,375
+MM,Birmania,Myanmar,95
+BO,Bolivia,Bolivia,591
+BA,Bosnia y Herzegovina,Bosnia and Herzegovina,387
+BW,Botsuana,Botswana,267
+BR,Brasil,Brazil,55
+BN,Brunéi,Brunei,673
+BG,Bulgaria,Bulgaria,359
+BF,Burkina Faso,Burkina Faso,226
+BI,Burundi,Burundi,257
+CV,Cabo Verde,Cape Verde,238
+KH,Camboya,Cambodia,855
+CM,Camerún,Cameroon,237
+CA,Canadá,Canada,1
+TD,Chad,Chad,235
+CL,Chile,Chile,56
+CN,China,China,86
+CY,Chipre,Cyprus,357
+VA,Ciudad del Vaticano,Vatican City State,39
+CO,Colombia,Colombia,57
+KM,Comoras,Comoros,269
+CG,República del Congo,Republic of the Congo,242
+CD,República Democrática del Congo,Democratic Republic of the Congo,243
+KP,Corea del Norte,North Korea,850
+KR,Corea del Sur,South Korea,82
+CI,Costa de Marfil,Ivory Coast,225
+CR,Costa Rica,Costa Rica,506
+HR,Croacia,Croatia,385
+CU,Cuba,Cuba,53
+CW,Curazao,Curaçao,5999
+DK,Dinamarca,Denmark,45
+DM,Dominica,Dominica,1 767
+EC,Ecuador,Ecuador,593
+EG,Egipto,Egypt,20
+SV,El Salvador,El Salvador,503
+AE,Emiratos Árabes Unidos,United Arab Emirates,971
+ER,Eritrea,Eritrea,291
+SK,Eslovaquia,Slovakia,421
+SI,Eslovenia,Slovenia,386
+ES,España,Spain,34
+US,Estados Unidos de América,United States of America,1
+EE,Estonia,Estonia,372
+ET,Etiopía,Ethiopia,251
+PH,Filipinas,Philippines,63
+FI,Finlandia,Finland,358
+FJ,Fiyi,Fiji,679
+FR,Francia,France,33
+GA,Gabón,Gabon,241
+GM,Gambia,Gambia,220
+GE,Georgia,Georgia,995
+GH,Ghana,Ghana,233
+GI,Gibraltar,Gibraltar,350
+GD,Granada,Grenada,1 473
+GR,Grecia,Greece,30
+GL,Groenlandia,Greenland,299
+GP,Guadalupe,Guadeloupe,590
+GU,Guam,Guam,1 671
+GT,Guatemala,Guatemala,502
+GF,Guayana Francesa,French Guiana,594
+GG,Guernsey,Guernsey,44
+GN,Guinea,Guinea,224
+GQ,Guinea Ecuatorial,Equatorial Guinea,240
+GW,Guinea-Bissau,Guinea-Bissau,245
+GY,Guyana,Guyana,592
+HT,Haití,Haiti,509
+HN,Honduras,Honduras,504
+HK,Hong kong,Hong Kong,852
+HU,Hungría,Hungary,36
+IN,India,India,91
+ID,Indonesia,Indonesia,62
+IR,Irán,Iran,98
+IQ,Irak,Iraq,964
+IE,Irlanda,Ireland,353
+BV,Isla Bouvet,Bouvet Island,47
+IM,Isla de Man,Isle of Man,44
+CX,Isla de Navidad,Christmas Island,61
+NF,Isla Norfolk,Norfolk Island,672
+IS,Islandia,Iceland,354
+BM,Islas Bermudas,Bermuda Islands,1 441
+KY,Islas Caimán,Cayman Islands,1 345
+CC,Islas Cocos (Keeling),Cocos (Keeling) Islands,61
+CK,Islas Cook,Cook Islands,682
+AX,Islas de Åland,Åland Islands,358
+FO,Islas Feroe,Faroe Islands,298
+GS,Islas Georgias del Sur y Sandwich del Sur,South Georgia and the South Sandwich Islands,500
+HM,Islas Heard y McDonald,Heard Island and McDonald Islands,672
+MV,Islas Maldivas,Maldives,960
+FK,Islas Malvinas,Falkland Islands (Malvinas),500
+MP,Islas Marianas del Norte,Northern Mariana Islands,1 670
+MH,Islas Marshall,Marshall Islands,692
+PN,Islas Pitcairn,Pitcairn Islands,870
+SB,Islas Salomón,Solomon Islands,677
+TC,Islas Turcas y Caicos,Turks and Caicos Islands,1 649
+UM,Islas Ultramarinas Menores de Estados Unidos,United States Minor Outlying Islands,246
+VG,Islas Vírgenes Británicas,Virgin Islands,1 284
+VI,Islas Vírgenes de los Estados Unidos,United States Virgin Islands,1 340
+IL,Israel,Israel,972
+IT,Italia,Italy,39
+JM,Jamaica,Jamaica,1 876
+JP,Japón,Japan,81
+JE,Jersey,Jersey,44
+JO,Jordania,Jordan,962
+KZ,Kazajistán,Kazakhstan,7
+KE,Kenia,Kenya,254
+KG,Kirguistán,Kyrgyzstan,996
+KI,Kiribati,Kiribati,686
+KW,Kuwait,Kuwait,965
+LB,Líbano,Lebanon,961
+LA,Laos,Laos,856
+LS,Lesoto,Lesotho,266
+LV,Letonia,Latvia,371
+LR,Liberia,Liberia,231
+LY,Libia,Libya,218
+LI,Liechtenstein,Liechtenstein,423
+LT,Lituania,Lithuania,370
+LU,Luxemburgo,Luxembourg,352
+MX,México,Mexico,52
+MC,Mónaco,Monaco,377
+MO,Macao,Macao,853
+MK,Macedônia,Macedonia,389
+MG,Madagascar,Madagascar,261
+MY,Malasia,Malaysia,60
+MW,Malawi,Malawi,265
+ML,Mali,Mali,223
+MT,Malta,Malta,356
+MA,Marruecos,Morocco,212
+MQ,Martinica,Martinique,596
+MU,Mauricio,Mauritius,230
+MR,Mauritania,Mauritania,222
+YT,Mayotte,Mayotte,269
+FM,Micronesia,Estados Federados de,691
+MD,Moldavia,Moldova,373
+MN,Mongolia,Mongolia,976
+ME,Montenegro,Montenegro,382
+MS,Montserrat,Montserrat,1 664
+MZ,Mozambique,Mozambique,258
+NA,Namibia,Namibia,264
+NR,Nauru,Nauru,674
+NP,Nepal,Nepal,977
+NI,Nicaragua,Nicaragua,505
+NE,Niger,Niger,227
+NG,Nigeria,Nigeria,234
+NU,Niue,Niue,683
+NO,Noruega,Norway,47
+NC,Nueva Caledonia,New Caledonia,687
+NZ,Nueva Zelanda,New Zealand,64
+OM,Omán,Oman,968
+NL,Países Bajos,Netherlands,31
+PK,Pakistán,Pakistan,92
+PW,Palau,Palau,680
+PS,Palestina,Palestine,970
+PA,Panamá,Panama,507
+PG,Papúa Nueva Guinea,Papua New Guinea,675
+PY,Paraguay,Paraguay,595
+PE,Perú,Peru,51
+PF,Polinesia Francesa,French Polynesia,689
+PL,Polonia,Poland,48
+PT,Portugal,Portugal,351
+PR,Puerto Rico,Puerto Rico,1
+QA,Qatar,Qatar,974
+GB,Reino Unido,United Kingdom,44
+CF,República Centroafricana,Central African Republic,236
+CZ,República Checa,Czech Republic,420
+DO,República Dominicana,Dominican Republic,1 809
+SS,República de Sudán del Sur,South Sudan,211
+RE,Reunión,Réunion,262
+RW,Ruanda,Rwanda,250
+RO,Rumanía,Romania,40
+RU,Rusia,Russia,7
+EH,Sahara Occidental,Western Sahara,212
+WS,Samoa,Samoa,685
+AS,Samoa Americana,American Samoa,1 684
+BL,San Bartolomé,Saint Barthélemy,590
+KN,San Cristóbal y Nieves,Saint Kitts and Nevis,1 869
+SM,San Marino,San Marino,378
+MF,San Martín (Francia),Saint Martin (French part),1 599
+PM,San Pedro y Miquelón,Saint Pierre and Miquelon,508
+VC,San Vicente y las Granadinas,Saint Vincent and the Grenadines,1 784
+SH,Santa Elena,Ascensión y Tristán de Acuña,290
+LC,Santa Lucía,Saint Lucia,1 758
+ST,Santo Tomé y Príncipe,Sao Tome and Principe,239
+SN,Senegal,Senegal,221
+RS,Serbia,Serbia,381
+SC,Seychelles,Seychelles,248
+SL,Sierra Leona,Sierra Leone,232
+SG,Singapur,Singapore,65
+SX,Sint Maarten,Sint Maarten,1 721
+SY,Siria,Syria,963
+SO,Somalia,Somalia,252
+LK,Sri lanka,Sri Lanka,94
+ZA,Sudáfrica,South Africa,27
+SD,Sudán,Sudan,249
+SE,Suecia,Sweden,46
+CH,Suiza,Switzerland,41
+SR,Surinám,Suriname,597
+SJ,Svalbard y Jan Mayen,Svalbard and Jan Mayen,47
+SZ,Swazilandia,Swaziland,268
+TJ,Tayikistán,Tajikistan,992
+TH,Tailandia,Thailand,66
+TW,Taiwán,Taiwan,886
+TZ,Tanzania,Tanzania,255
+IO,Territorio Británico del Océano Índico,British Indian Ocean Territory,246
+TF,Territorios Australes y Antárticas Franceses,French Southern Territories,262
+TL,Timor Oriental,East Timor,670
+TG,Togo,Togo,228
+TK,Tokelau,Tokelau,690
+TO,Tonga,Tonga,676
+TT,Trinidad y Tobago,Trinidad and Tobago,1 868
+TN,Tunez,Tunisia,216
+TM,Turkmenistán,Turkmenistan,993
+TR,Turquía,Turkey,90
+TV,Tuvalu,Tuvalu,688
+UA,Ucrania,Ukraine,380
+UG,Uganda,Uganda,256
+UY,Uruguay,Uruguay,598
+UZ,Uzbekistán,Uzbekistan,998
+VU,Vanuatu,Vanuatu,678
+VE,Venezuela,Venezuela,58
+VN,Vietnam,Vietnam,84
+WF,Wallis y Futuna,Wallis and Futuna,681
+YE,Yemen,Yemen,967
+DJ,Yibuti,Djibouti,253
+ZM,Zambia,Zambia,260
+ZW,Zimbabue,Zimbabwe,263

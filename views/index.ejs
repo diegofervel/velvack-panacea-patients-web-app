@@ -25,16 +25,11 @@
             />
           </svg>
         </button>
-        <input
-          type="search"
-          class="form-control"
-          placeholder="Buscar..."
-          aria-label="Campo de texto para buscar palabra"
-        />
+        <input type="search" class="form-control" placeholder="Buscar..." />
       </div>
     </div>
     <div class="col-lg-2 mb-3 text-end">
-      <form action="/patient-form/" method="GET">
+      <form action="/patient-form" method="GET">
         <button type="submit" class="btn btn-primary velvack-button-1">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -82,7 +77,7 @@
           <td><%=patient.tipo_doc%></td>
           <td><%=patient.num_doc%></td>
           <td>
-            <a href="patient-form/edit/<%=patient.id%>">
+            <a href="/patient-form/<%=patient.id%>">
               <svg
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"

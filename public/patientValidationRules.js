@@ -1,5 +1,4 @@
 import { body } from 'express-validator';
-import moment from 'moment';
 
 const patientValidationRules = () => {
   return [
@@ -46,7 +45,6 @@ const patientValidationRules = () => {
       .notEmpty()
       .withMessage('Por favor, ingrese la fecha de nacimiento del paciente.')
       .isDate({ locale: 'es-CO', format: 'DD/MM/YYYY' })
-
       //.isDate()
       .withMessage('Por favor, ingrese una fecha en formato correcto DD/MM/YYYY.'),
     body('patientGender')
@@ -58,8 +56,9 @@ const patientValidationRules = () => {
       .trim()
       .escape()
       .optional({ checkFalsy: true })
-      .matches(/^[A-Za-z0-9 ñÑ]+$/)
-      .withMessage('Este campo solo puede contener letras o números.'),
+      //.matches(/^[A-Za-z0-9 ñÑ]+$/)
+      .matches(/^[A-Za-z ñÑ]+$/)
+      .withMessage('Este campo solo puede contener el código de país iso2 como valor'),
     body('patientMobile')
       //.isMobilePhone('any')
       //.withMessage('Número de celular inválido.')

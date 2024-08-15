@@ -1,0 +1,1 @@
+INSERT INTO programa_atencion (nombre) VALUES ('Inflamación y Dolor'), ('Neurológica'), ('Virus'), ('Vascular') 

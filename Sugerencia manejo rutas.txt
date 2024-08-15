@@ -1,0 +1,7 @@
+Sugerencia manejo rutas iniciales página Velvack Panacea Patients VPP:
+
+/: Ruta principal, renderiza la vista de inicio.
+/patient-form: Ruta para crear un nuevo paciente, renderiza la vista de creación de paciente.
+/patient-form/:id?: Ruta para editar un paciente existente, renderiza la vista de edición de paciente.
+/patients: Ruta para listar todos los pacientes, renderiza la vista de lista de pacientes.
+/patients/:id?: Ruta para mostrar un paciente específico, renderiza la vista de paciente individual.

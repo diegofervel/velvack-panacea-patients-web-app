@@ -1,8 +1,7 @@
-<%- include('partials/header.ejs'); %> <%- include('partials/navbar.ejs'); %> <%# let formTitle = 'CREAR PACIENTE'; if
-(patient) { formTitle = 'EDITAR PACIENTE'; } %>
+<%- include('partials/header.ejs'); %> <%- include('partials/navbar.ejs'); %>
 
 <div class="container col-md-8">
-  <form action="/create" method="post" class="needs-validation" novalidate>
+  <form action="/patient-form/create" method="post" class="needs-validation" novalidate>
     <h5 class="mb-3 velvack-section-title"><%= formTitle %></h5>
     <h5 class="mb-4 mt-5 velvack-section-title">Información personal</h5>
 
@@ -86,7 +85,7 @@
             'Tarjeta de identidad', 'Registro civil', 'Pasaporte', 'Cédula de extranjería'][i]; idTypeSelected[i] =
             locals.patient?.patientIdType == i ? 'selected' : '' %>
             <!-- prettier-ignore -->
-            <option value=<%=i%> <%= idTypeSelected[i] %>><%= idType %></option>
+            <option value="<%= i %>" <%= idTypeSelected[i] %>><%= idType %></option>
             <% } %>
           </select>
           <input
@@ -106,7 +105,6 @@
           </div>
         </div>
       </div>
-
       <div class="col-md-6 mb-3">
         <label for="patientBirthDate" <%#class="form-label" %>
           > Fecha de nacimiento<span style="color: red">*</span></label
@@ -117,9 +115,7 @@
           id="patientBirthDate"
           name="patientBirthDate"
           placeholder="DD/MM/YYYY"
-          value="<%=
-        locals.patient ? (patient.patientBirthDate.toString() !== 'Invalid Date' ?
-        patient.patientBirthDate.toLocaleDateString('es-CO', { 
+          value="<%= locals.patient ? (patient.patientBirthDate.toString() !== 'Invalid Date' ? patient.patientBirthDate.toLocaleDateString('es-CO', { 
           day: '2-digit', 
           month: '2-digit', 
           year: 'numeric' 
@@ -155,17 +151,20 @@
 
       <div class="col-md-6 mb-3">
         <label for="patientCountryBirth">País de nacimiento</label>
-        <select class="form-select <%= locals.errors?.find(err => err.path === 'patientCountryBirth') ? 'is-invalid' : '' %>" 
-          id="patientCountryBirth" name="patientCountryBirth">
-        <option value="" disabled selected > Seleccione un país </option> 
-        <% if (locals.countries) { 
-        for (let country of countries) { %>
-        <option value="<%= country.codigo_iso2 %>" <%= locals.patient?.patientCountryBirth == country.codigo_iso2 ? 'selected' : '' %>>
-          <span class="fi fi-<%= country.codigo_iso2 %> fis rounded-flag"></span>
-          <%= country.nombre %>
-        </option>
-        <% } %>
-        <% } %>
+        <select
+          class="form-select <%= locals.errors?.find(err => err.path === 'patientCountryBirth') ? 'is-invalid' : '' %>"
+          id="patientCountryBirth"
+          name="patientCountryBirth"
+        >
+          <% let isPatientCountryBirthSelected = !locals.patient || !patient.patientCountryBirth ? 'selected' : ''; %>
+          <% if (locals.countries) { %>
+          <!-- prettier-ignore -->
+          <option value='CO' <%= isPatientCountryBirthSelected %>> Colombia </option>
+          <% for (let country of countries) { let patientCountryBirthSelected = locals.patient?.patientCountryBirth ==
+          country.codigo_iso2 ? 'selected' : '' %>
+          <!-- prettier-ignore -->
+          <option value="<%= country.codigo_iso2 %>" <%= patientCountryBirthSelected %> > <%= country.nombre %></option>
+          <% } %> <% } %>
         </select>
         <div class="invalid-feedback">
           <%= locals.errors?.find(err => err.path === 'patientCountryBirth')?.msg || '' %>
@@ -232,9 +231,6 @@
 
     <div class="row">
       <div class="col-md-6 mb-3">
-        <% let isPatientAttentionProgramSelected = !locals.patient || !patient.patientAttentionProgram ? 'selected' :
-        ''; %> <% let patientAttentionProgramSelected = {}; %> <% for (let i = 1; i <= 3; i++) {
-        patientAttentionProgramSelected[i] = locals.patient?.patientAttentionProgram == i ? 'selected' : ''; } %>
         <label for="patientAttentionProgram">Programa de atención<span style="color: red">*</span></label>
         <select
           class="form-select <%= locals.errors?.find(err => err.path === 'patientAttentionProgram') ? 'is-invalid' : '' %>"
@@ -242,14 +238,17 @@
           name="patientAttentionProgram"
           required
         >
+          <% let isPatientAttentionProgramSelected = !locals.patient || !patient.patientAttentionProgram ? 'selected' :
+          ''; %> <% if (locals.atentionPrograms) { %>
+
           <!-- prettier-ignore -->
-          <option value="" disabled <%=isPatientAttentionProgramSelected%>>Seleccione el programa de atención</option>
+          <option value="" disabled <%= isPatientAttentionProgramSelected %> > Seleccione un programa de atención </option>
+
+          <% for (let atentionProgram of atentionPrograms) { %> <% let patientAttentionProgramSelected =
+          locals.patient?.patientAttentionProgram == atentionProgram ? 'selected' : ''; %>
           <!-- prettier-ignore -->
-          <option value="1" <%= patientAttentionProgramSelected[1] %>>Dolor</option>
-          <!-- prettier-ignore -->
-          <option value="2" <%= patientAttentionProgramSelected[2] %>>Cáncer</option>
-          <!-- prettier-ignore -->
-          <option value="3" <%= patientAttentionProgramSelected[3] %>>Virus</option>
+          <option value="<%= atentionProgram.id %>" <%= patientAttentionProgramSelected %>> <%= atentionProgram.nombre %> </option>
+          <% } } %>
         </select>
         <div class="invalid-feedback">
           <%= locals.errors?.find(err => err.path === 'patientAttentionProgram')?.msg || '' %>

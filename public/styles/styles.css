@@ -1,4 +1,4 @@
-@import '/node_modules/flag-icons/css/flag-icons.min.css';
+/*@import '/node_modules/flag-icons/css/flag-icons.min.css';*/
 
 /*Paleta colores Velvack - Panacea:*/
 :root {
@@ -44,9 +44,7 @@
 }
 
 #velvackNavBar {
-  background: rgb(226, 237, 249);
   background: linear-gradient(11deg, rgba(226, 237, 249, 1) 26%, rgba(0, 123, 255, 0.2890582258293942) 100%);
-  /*background-color: #e2edf9;*/
 }
 
 .rounded-flag {

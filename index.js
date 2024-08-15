@@ -33,8 +33,13 @@ const db = new pg.Client({
 
 db.connect();
 
-let patientCreatedMessage = '';
+const paises = await db.query('SELECT * FROM paises ORDER BY id ASC');
+const countries = paises.rows;
 
+const programas_atencion = await db.query('SELECT * FROM programa_atencion ORDER BY id ASC');
+const atentionPrograms = programas_atencion.rows;
+
+let patientCreatedMessage = ''; // revisar esto, hacerlo mejor
 app.get('/', async (req, res) => {
   try {
     const result = await db.query('SELECT * FROM pacientes ORDER BY id ASC');
@@ -50,13 +55,23 @@ app.get('/', async (req, res) => {
   }
 });
 
-app.get('/patient-form/:edit?/:id?', async (req, res) => {
+app.get('/prueba', async (req, res) => {
+  let formTitle = 'PRUEBAAA PACIENTE';
+  try {
+    res.render('patientForm.ejs', { formTitle: formTitle });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.get('/patient-form/:id?', async (req, res) => {
+  const id = parseInt(req.params.id);
   let patient = null; // Reset patient for each request
   let formTitle = 'CREAR PACIENTE';
-  const id = parseInt(req.params.id);
+  console.log('patient null para crear: ' + patient);
   if (id) {
+    console.log('entré a if id');
     formTitle = 'EDITAR PACIENTE';
-    console.log(id);
     const result = await db.query(
       `SELECT 
       pacientes.id AS "patientId", 
@@ -68,7 +83,7 @@ app.get('/patient-form/:edit?/:id?', async (req, res) => {
       pacientes.num_doc AS "patientIdNumber", 
       pacientes.fecha_nacimiento AS "patientBirthDate", 
       pacientes.genero AS "patientGender", 
-      pacientes.pais_nacimiento_id AS "patientCountryBirth",
+      pacientes.pais_nacimiento_iso2 AS "patientCountryBirth",
       pacientes.prog_atencion_id AS "patientAttentionProgram",   
       contacto.celular AS "patientMobile", 
       contacto.telefono AS "patientPhone", 
@@ -82,20 +97,23 @@ app.get('/patient-form/:edit?/:id?', async (req, res) => {
       LEFT JOIN acudientes ON pacientes.id = acudientes.paciente_id 
       WHERE pacientes.id = $1`,
       [id]
-    ); //("SELECT * FROM pacientes WHERE id = $1", [id]);
+    );
     patient = result.rows[0];
-    console.log(patient);
+    console.log('patient para editar: ' + JSON.stringify(patient));
+    /*else if (action === 'create') {
+    // Configurar el formulario para la creación de un nuevo paciente
+    formTitle = 'CREAR PACIENTE';
+    patient = null; // No hay paciente que cargar, por lo que se mantiene null
+  }*/
   }
-  const result2 = await db.query('SELECT * FROM paises ORDER BY id ASC');
-  let countries = result2.rows;
   try {
     //SELECT * FROM flags WHERE
     res.render('patientForm.ejs', {
-      patient: patient,
       formTitle: formTitle,
-      countries: countries /*, errors: errors */
+      countries: countries,
+      atentionPrograms: atentionPrograms,
+      patient: patient
     });
-    formTitle = 'CREAR PACIENTE'; // Evaluar esto, creo que ya no es necesario.
   } catch (err) {
     console.log(err);
   }
@@ -106,11 +124,10 @@ String.prototype.cap = function () {
   return this.charAt(0).toUpperCase() + this.slice(1).toLowerCase();
 };
 
-app.post('/create', patientValidationRules(), async (req, res) => {
+app.post('/patient-form/create', patientValidationRules(), async (req, res) => {
   let newP = req.body;
   const patientBirthDateFormat = moment(newP.patientBirthDate, 'DD/MM/YYYY'); // OJO: cambiar moment por "date-fns".
   newP.patientBirthDate = new Date(new Date(patientBirthDateFormat).toUTCString());
-  //console.log('newP.patientBirthDate: ' + newP.patientBirthDate);
 
   let errors = validationResult(req);
   if (errors.isEmpty()) {
@@ -119,7 +136,7 @@ app.post('/create', patientValidationRules(), async (req, res) => {
       //const formattedBirthDate = birthDateMoment.isValid() ? birthDateMoment.format('YYYY-MM-DD') : '';
       const result = await db.query(
         `INSERT INTO pacientes (nombre_1, nombre_2, apellido_1, apellido_2, tipo_doc_id, num_doc, 
-        fecha_nacimiento, genero, pais_nacimiento_id, tipo_doc, prog_atencion_id, prog_atencion, pais_nacimiento) 
+        fecha_nacimiento, genero, pais_nacimiento_iso2, tipo_doc, prog_atencion_id, prog_atencion, pais_nacimiento) 
         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, (SELECT nombre FROM tipo_documento WHERE id = $5), $10, 
         (SELECT nombre FROM programa_atencion WHERE id = $10), (SELECT nombre FROM paises WHERE codigo_iso2 = $9)) RETURNING id`,
         [
@@ -132,7 +149,7 @@ app.post('/create', patientValidationRules(), async (req, res) => {
           newP.patientBirthDate,
           //formattedBirthDate,
           newP.patientGender.cap(),
-          newP.patientCountryBirth.cap(),
+          newP.patientCountryBirth,
           newP.patientAttentionProgram
         ]
       );
@@ -160,11 +177,13 @@ app.post('/create', patientValidationRules(), async (req, res) => {
     }
   } else {
     if (errors.array().length > 0) {
-      console.log('patientBirthDate: ' + newP.patientBirthDate);
+      //console.log(JSON.stringify(newP));
       res.render('patientForm.ejs', {
-        errors: errors.array(),
         patient: newP,
-        formTitle: 'CORREGIR FORMULARIO'
+        formTitle: 'CORREGIR FORMULARIO',
+        countries: countries,
+        atentionPrograms: atentionPrograms,
+        errors: errors.array()
       });
     }
     /*
@@ -185,41 +204,3 @@ app.post('/create', patientValidationRules(), async (req, res) => {
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
-
-//FUNCIONES:
-/*
-function mapDbNamesToFieldNames(key) {
-  switch (key) {
-    case "nombre_1":
-      return "patientFirstName";
-    case "nombre_2":
-      return "patientSecondName";
-    case "apellido_1":
-      return "patientFirstLastName";
-    case "apellido_2":
-      return "patientSecondLastName";
-    case "tipo_doc_id":
-      return "patientIdType";
-    case "num_doc":
-      return "patientIdNumber";
-    case "fecha_nacimiento":
-      return "patientBirthDate";
-    case "genero":
-      return "patientGender";
-    case "pais_nacimiento":
-      return "patientCountryBirth";
-    case "prog_atencion":
-      return "patientAttentionProgram";
-    case "celular":
-      return "patientMobile";
-    case "telefono":
-      return "patientPhone";
-    case "email":
-      return "patientEmail";
-    case "direccion":
-      return "patientAddress";
-    default:
-      return key;
-  }
-}
-*/

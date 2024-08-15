@@ -15,10 +15,11 @@ app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(express.static('public')); // app.use(express.static(path.join(__dirname, 'public')));
+//app.use(express.static('public'));
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+app.use(express.static(path.join(__dirname, 'public')));
 app.use('/node_modules', express.static(path.join(__dirname, 'node_modules')));
 
 //app.use(express.json());
@@ -55,22 +56,11 @@ app.get('/', async (req, res) => {
   }
 });
 
-app.get('/prueba', async (req, res) => {
-  let formTitle = 'PRUEBAAA PACIENTE';
-  try {
-    res.render('patientForm.ejs', { formTitle: formTitle });
-  } catch (err) {
-    console.log(err);
-  }
-});
-
 app.get('/patient-form/:id?', async (req, res) => {
   const id = parseInt(req.params.id);
   let patient = null; // Reset patient for each request
   let formTitle = 'CREAR PACIENTE';
-  console.log('patient null para crear: ' + patient);
   if (id) {
-    console.log('entré a if id');
     formTitle = 'EDITAR PACIENTE';
     const result = await db.query(
       `SELECT 
@@ -99,15 +89,8 @@ app.get('/patient-form/:id?', async (req, res) => {
       [id]
     );
     patient = result.rows[0];
-    console.log('patient para editar: ' + JSON.stringify(patient));
-    /*else if (action === 'create') {
-    // Configurar el formulario para la creación de un nuevo paciente
-    formTitle = 'CREAR PACIENTE';
-    patient = null; // No hay paciente que cargar, por lo que se mantiene null
-  }*/
   }
   try {
-    //SELECT * FROM flags WHERE
     res.render('patientForm.ejs', {
       formTitle: formTitle,
       countries: countries,
@@ -132,8 +115,6 @@ app.post('/patient-form/create', patientValidationRules(), async (req, res) => {
   let errors = validationResult(req);
   if (errors.isEmpty()) {
     try {
-      //const birthDateMoment = moment(newP.patientBirthDate, 'DD/MM/YYYY');
-      //const formattedBirthDate = birthDateMoment.isValid() ? birthDateMoment.format('YYYY-MM-DD') : '';
       const result = await db.query(
         `INSERT INTO pacientes (nombre_1, nombre_2, apellido_1, apellido_2, tipo_doc_id, num_doc, 
         fecha_nacimiento, genero, pais_nacimiento_iso2, tipo_doc, prog_atencion_id, prog_atencion, pais_nacimiento) 
@@ -186,20 +167,8 @@ app.post('/patient-form/create', patientValidationRules(), async (req, res) => {
         errors: errors.array()
       });
     }
-    /*
-    if (errors.array().length > 0) {
-      errors = errors.array();
-      patient = req.body;
-      res.redirect("patient-form");
-    } else {
-      res.redirect("/"); 
-    }
-*/
-    //res.redirect("/patient-form");
   }
 });
-
-// OJO: Tabla para acudiente: newP.patientAttentionProgram, etc.
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);

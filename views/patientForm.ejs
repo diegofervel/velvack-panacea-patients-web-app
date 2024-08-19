@@ -1,7 +1,7 @@
 <%- include('partials/header.ejs'); %> <%- include('partials/navbar.ejs'); %>
 
 <div class="container col-md-8">
-  <form action="/patient-form/create" method="post" class="needs-validation" novalidate>
+  <form action="/patient-form/create" method="POST" class="needs-validation" novalidate>
     <h5 class="mb-3 velvack-section-title"><%= formTitle %></h5>
     <h5 class="mb-4 mt-5 velvack-section-title">Información personal</h5>
 
@@ -245,10 +245,10 @@
           <option value="" disabled <%= isPatientAttentionProgramSelected %> > Seleccione un programa de atención </option>
 
           <% for (let atentionProgram of atentionPrograms) { %> <% let patientAttentionProgramSelected =
-          locals.patient?.patientAttentionProgram == atentionProgram ? 'selected' : ''; %>
+          locals.patient?.patientAttentionProgram == atentionProgram.id ? 'selected' : ''; %>
           <!-- prettier-ignore -->
           <option value="<%= atentionProgram.id %>" <%= patientAttentionProgramSelected %>> <%= atentionProgram.nombre %> </option>
-          <% } } %>
+          <% } %> <% } %>
         </select>
         <div class="invalid-feedback">
           <%= locals.errors?.find(err => err.path === 'patientAttentionProgram')?.msg || '' %>
